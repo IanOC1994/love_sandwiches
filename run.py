@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 # Define the scope
 SCOPE = [
@@ -71,6 +70,7 @@ def validate_data(values):
 #     surplus_worksheet.append_row(data)
 #     print("Surplus worksheet updated successfully.\n")
 
+
 def update_worksheet(data, worksheet):
     """
     Receives a list of integers to be inserted into a worksheet
@@ -80,6 +80,7 @@ def update_worksheet(data, worksheet):
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully.\n")
+
 
 def calculate_surplus_data(sales_row):
     """
@@ -92,13 +93,12 @@ def calculate_surplus_data(sales_row):
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
-    
     surplus_data = []
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
         surplus_data.append(surplus)
-    
     return surplus_data
+
 
 def main():
     """
